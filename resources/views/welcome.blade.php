@@ -10,6 +10,9 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">--}}
 
         <!-- Styles -->
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <style>
             html, body {
                 background-color: #fff;
@@ -67,45 +70,54 @@
         </style>
     </head>
     <body>
-    <div>
-        <h5 align="right" class="v">200002</h5>
-    </div>
-        <div class="flex-center position-ref full-height">
-		
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        <div>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+           {{-- <div class="flex-center position-ref full-height">--}}
+            <div class="container">
+                <div class="col-xl-6 order-xl-1 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <strong><h4>Liste des 10 derniers intervalles d'imprimé.</h4></strong>
+                    </div>
+                    <div class="card-body ">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="text-center">Debut</th>
+                                <th class="text-center" >Fin</th>
+                                <th class="text-center" >Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($histoires as $h)
+                            <tr>
+                                <th >{{$h->id}}</th>
+                                <td class="text-center">{{$h->debut}}</td>
+                                <td class="text-center">{{$h->fin}}</td>
+                                <td class="text-center"> {{ Carbon\Carbon::parse($h->created_at)->format('d-m-Y h:i:s') }}</td>
+                            </tr>
+                            @endforeach
+                            {{--<tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td colspan="2">Larry the Bird</td>
+                                <td>@twitter</td>
+                            </tr>--}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-				
-				<div class="visible-print text-center">
-	            {!! QrCode::size(100)->generate(Request::url()) !!}
-	<p>Scan me to return to the original page.</p>
-</div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-					<a href="{{route('customer.printpdf')}}">Print PDF</a>
                 </div>
             </div>
-        </div>
+
+
+            </div>
+       {{-- </div>--}}
     </body>
 </html>

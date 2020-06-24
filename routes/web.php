@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+   $histoires =  \App\Histoire::latest()->take(10)->get();
+    return view('welcome', compact('histoires'));
 });
 
 

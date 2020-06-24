@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Histoire;
 use PDF;
 use Illuminate\Http\Request;
 
@@ -28,6 +29,11 @@ class CustomerController extends Controller
             'debut' => $debut,
             'fin' => $fin
         ];
+
+        $histoire = new Histoire();
+        $histoire->debut = $debut;
+        $histoire->fin = $fin;
+        $histoire->save();
 
         //$data = 6001;
         $pdf = PDF::loadView('pdf_view', $data);
